@@ -1,0 +1,5 @@
+runtime: nodejs16
+service: backend
+env_variables:
+  GCP_PROJECT: "fahrezaisnantodev"
+  PROCESS_TOPIC: "process_topic"
