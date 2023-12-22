@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'gcr.io/fahrezaisnantodev/exploreease-backend:$SHORT_SHA','.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'gcr.io/fahrezaisnantodev/exploreease-backend:$SHORT_SHA']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [ 
+      'run', 
+      'deploy', 
+      'exploreease-backend', 
+      '--image=gcr.io/fahrezaisnantodev/exploreease-backend:$SHORT_SHA', 
+      '--region=asia-southeast2', 
+      '--set-env-vars=GCP_PROJECT=fahrezaisnantodev,SEARCH_TOPIC=search_topic,NEARBY_TREASURE_TOPIC=nearby_treasure_topic,TOP_DESTINATION_TOPIC=top_destination_topic,SEARCH_BY_CATEGORY_TOPIC=search_by_category_topic',
+      '--allow-unauthenticated'
+    ]
